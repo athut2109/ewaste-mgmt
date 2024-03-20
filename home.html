@@ -1,50 +1,63 @@
 <!DOCTYPE html>
 <html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EcoBin</title>
     <style>
         * {
-         margin: 0;
-         padding: 0;
-         box-sizing: border-box;
-         transition: 0.3s ease-in;
-         scroll-behavior: smooth !important;
-      }
-
-      nav {
-         background: #ffffff;
-         display: flex;
-         justify-content: space-around;
-         align-items: center;
-         max-height: 125px;
-         padding: 1rem 1.5rem;
-         box-shadow: 2px 3px 2px #b0b0b0;
-         position: sticky;
-         top: 0;
-         left: 0;
-         z-index: 1;
-      }
-
-      .logo {
-         max-width: 60%;
-         max-height: 60%
-      }
-
-      .add-items {
-          color: white;
-          background-color: #088F8F;
-          padding: 15px 32px;
-          text-align: center;
-          display: inline-block;
-          font-size: 1.2rem;
-          font-weight: bold;
-          margin: 4px 2px;
-          border-color: #000000;
-          border-width: 3px;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            transition: 0.3s ease-in;
+            scroll-behavior: smooth !important;
         }
 
-        .add-items:hover  {
+        body{
+            background-color: #5fbe7f;
+            background-image: url('images/bg.png');
+            background-repeat: repeat;
+            background-size: contain;
+            background-blend-mode: soft-light;
+        }
+
+        nav {
+            background: #ffffff;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            max-height: 125px;
+            padding: 1rem 1.5rem;
+            box-shadow: 2px 3px 2px #b0b0b0;
+            position: sticky;
+            top: 0;
+            left: 0;
+            z-index: 1;
+        }
+
+        .logo {
+            max-width: 60%;
+            max-height: 60%;
+        }
+
+        .add-items {
+            color: white;
+            background-color: #088F8F;
+            padding: 15px 32px;
+            text-align: center;
+            display: inline-block;
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin: 4px 2px;
+            border-color: #000000;
+            border-width: 3px;
+        }
+
+        .add-items:hover {
             color: #000000;
             background-color: #7FFFD4;
         }
+
         .nav-item {
             margin-left: 2rem;
             margin-right: 2rem;
@@ -55,7 +68,7 @@
             font-weight: bold;
         }
 
-        .nav-button{
+        .nav-button {
             color: white;
             font-size: 16px;
             background-color: #056c48;
@@ -66,7 +79,7 @@
             border-width: 3px;
         }
 
-        .nav-button:hover{
+        .nav-button:hover {
             background-color: #009E60;
         }
 
@@ -80,10 +93,10 @@
         }
 
         a:hover {
-            color: 	#90EE90;
+            color: #90EE90;
         }
 
-        .hero{
+        .hero {
             display: flex;
             background-color: #3e3e3e;
             background-image: url("images/hero-bg.jpg");
@@ -92,11 +105,17 @@
             background-size: cover;
             align-items: center;
             justify-content: space-around;
-            background-blend-mode:overlay;
+            background-blend-mode: overlay;
             height: 50rem;
         }
 
-        .contact-info{
+        .hero .hero-text p{
+            padding: 2rem 3rem 2rem 0rem;
+            color: #ffffff;
+            font-size: 1.5rem;
+        }
+
+        .contact-info {
             display: flex;
             align-items: center;
             justify-content: center;
@@ -105,7 +124,7 @@
             margin: 2rem auto 2rem;
         }
 
-        .video-wrapper{
+        .video-wrapper {
             position: relative;
         }
 
@@ -128,24 +147,30 @@
 
         .contact-info .map-wrapper iframe {
             border: none;
-            width: 560px;
+            width: 560px; /* Adjusted width for responsiveness */
             height: 350px;
         }
 
-        h2{
+        h1 {
+            font-size: 5rem;
+            color: #ffffff;
+        }
+
+        h2 {
             text-align: center;
             font-size: 5rem;
             margin-top: 2rem;
         }
 
-        .services{
+        .services {
             max-width: 1380px;
             margin: 2rem auto 2rem;
-            height: 60rem;
+            height: auto; /* Removed fixed height */
         }
-        
-        .service-cards{
+
+        .service-cards {
             display: flex;
+            flex-wrap: wrap; /* Added to make cards responsive */
             align-items: center;
             justify-content: space-around;
             gap: 2rem;
@@ -160,7 +185,19 @@
 
         .card {
             position: relative;
-            width: 60%;
+            width: 30%; /* Adjusted width for responsiveness */
+            height: auto;
+        }
+
+        .services .service-info p{
+            font-size: 1.3rem;
+            margin: 2rem auto;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        .service-cards .card h1{
+            font-size: 2rem;
         }
 
         .image {
@@ -185,7 +222,7 @@
         }
 
         .card:hover .overlay {
-            opacity: 0.7;
+            opacity: 0.75;
         }
 
         .text {
@@ -198,7 +235,24 @@
             -ms-transform: translate(-50%, -50%);
         }
 
-        .contact-info{
+        .contact h2{
+            color: #ffffff;
+            height: 20rem;
+            align-items: center;
+            display: grid;
+            background-image: url('images/contact-bg.jpeg');
+            background-attachment: fixed;
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-color: #323232;
+            background-blend-mode: overlay;
+        }
+
+        .contact-links ul li a{
+            color: #000000;
+        }
+
+        .contact-info {
             display: flex;
             align-items: center;
             justify-content: space-between;
@@ -207,28 +261,246 @@
             margin: 2rem auto 2rem;
         }
 
-        footer{
+        footer {
             color: #008000;
             background: #ffffff;
             height: 7rem;
             align-items: center;
         }
+
+        footer p{
+            text-align: center;
+            padding: 40px 0 0 0;
+            font-size: 1.35rem;
+        }
+
+/* Media Queries for responsiveness */
+
+        /*for windowed screen*/
+        @media screen and (max-width: 1080px){
+            .hero {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .hero-text {
+                margin: 0;
+            }
+
+            .hero .hero-text p{
+                text-align: center;
+                margin-top: 1rem;
+                padding: 1rem 3rem;
+
+            }
+
+            .logo {
+            height: 50% !important;
+            width: 50% !important;
+            }
+
+            h1, h2{
+                font-size: 4rem;
+            }
+
+            .nav-button{
+                font-size: 14px;
+                padding: 15px 15px;
+            }
+
+            .nav-item{
+                margin-left: 1.3rem;
+                margin-right: 1.3rem;
+                font-size: 18px;
+            }
+
+            .text{
+                font-size: 14px;
+            }
+
+            .contact-links{
+                margin-left: 3rem;
+            }
+
+            .map-wrapper iframe{
+                width: 360px !important;
+                height: 300px !important;
+                margin-right: 3rem;
+            }
+        }
+
+        /*For Tablet*/
+        @media screen and (max-width: 768px) {
+            .hero {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .hero-text {
+                margin: 0;
+            }
+
+            .add-items {
+            margin-top: 2rem;
+            padding: 12px 28px;
+            font-size: 16px;
+            }
+
+            .video-wrapper iframe {
+                margin-top: -5rem;
+                width: 480px;
+            }
+
+            .services{
+                justify-content: center;
+                align-items: center;
+            }
+
+            .service-cards {
+                width: 70%;
+                margin: 1rem auto;
+            }
+
+            .card {
+                width: 100%;
+                height: 50% !important;
+            }
+
+            .service-cards .card p{
+                font-size: 18px;
+            }
+
+            .services .service-info p{
+            font-size: 1rem;
+            margin-bottom: 2rem;
+            }
+
+            .contact h2{
+                height: 12rem;
+            }
+
+            .contact-info {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .contact-links{
+                margin-left: 0;
+            }
+
+            .map-wrapper iframe{
+                margin-right: 0rem;
+            }
+
+            .nav-button{
+                font-size: 14px;
+                padding: 10px 26px;
+            }
+
+            .nav-item{
+                margin-left: 1rem;
+                margin-right: 1rem;
+                font-size: 16px;
+            }
+
+            .logo {
+            height: 50%;
+            width: 50%;
+            }
+
+            h1, h2{
+                font-size: 3rem;
+            }
+
+            .hero .hero-text p{
+                text-align: center;
+                padding: 1rem 5rem;
+                font-size: 18px;
+            }
+        }
+
+        /*For Mobile*/
+        @media screen and (max-width: 480px) {
+            .add-items {
+            margin-top: 2rem;
+            padding: 12px 28px;
+            font-size: 16px;
+            }
+
+            .video-wrapper iframe {
+                margin-top: -5rem;
+                width: 360px;
+                height: 240px;
+            }
+
+            .service-cards {
+                width: 90%;
+                margin: 1rem auto;
+            }
+
+            .card {
+                width: 100%;
+                height: 30% !important;
+            }
+
+            .service-cards .card p{
+                font-size: 14px;
+            }
+
+            .nav-button{
+                font-size: 10px;
+                padding: 10px 18px;
+            }
+
+            .nav-item{
+                margin-left: .5rem;
+                margin-right: .5rem;
+                font-size: 10px;
+            }
+
+            .logo {
+            height: 50%;
+            width: 50%;
+            }
+
+            h1, h2{
+                font-size: 2.5rem;
+            }
+
+            .hero .hero-text p{
+                text-align: center;
+                padding: 1rem 3rem;
+                font-size: 18px;
+            }
+
+            .contact-links ul li{
+                font-size: 18px;
+            }
+
+            footer{
+                height: 3rem;
+            }
+            
+            footer p{
+            text-align: center;
+            justify-content: center;
+            padding: 10px 0;
+            font-size: 14px;
+            }
+        }
     </style>
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>EcoBin</title>
 </head>
-<body style="background-color: #5fbe7f; background-image: url('images/bg.png'); background-repeat:repeat; background-size: contain; background-blend-mode:soft-light;">
-    <nav>
-        <a href="home.html">
-           <img src="images\demo_logo.png" class="logo">
-           <ul style="display: flex;  justify-content: space-between;  align-items: center;">
+<body>
+<!--Navigation Bar-->
+<nav>
+    <a href="home.html">
+        <img src="images\demo_logo.png" class="logo">
+        <ul style="display: flex;  justify-content: space-between;  align-items: center;">
             <li class="nav-item">
                 <a href="#home" class="nav-link">Home</a>
             </li>
             <li class="nav-item">
-                <a href="profile.html" class="nav-link">Your Profile</a>
+                <a href="profile.html" class="nav-link">Profile</a>
             </li>
             <li class="nav-item">
                 <a href="#services" class="nav-link">Services</a>
@@ -237,86 +509,83 @@
                 <a href="#contact-us" class="nav-link">Contact</a>
             </li>
             <button type="button" class="nav-button" onclick="location.href='ordered.html'">Request Now</button>
-          </ul>
-        </a>
-     </nav>
+        </ul>
+    </a>
+</nav>
 
-     <!-- Hero Section -->
-    <section class="hero" id="home">
-        <div class="hero-text" style="margin-left: 15rem;">
-            <h1 style="font-size: 4rem; color: #ffffff;">Welcome to EcoBin</h1>
-            <p style="padding: 2rem 3rem 2rem 0rem; color: #ffffff; font-size: 1.5rem;">
-                Join us in making a difference: conveniently recycle your e-waste with our eco-friendly collection service, contributing to a cleaner, sustainable future.
-            </p>
-            <button class="add-items" onclick="location.href='add_item.html'">Add Items</button>
-        </div>
-        <div class="video-wrapper" style="margin-right: 10rem;">
-              <iframe width="635" height="360" src="https://www.youtube.com/embed/JfU0107bVs8?autoplay=1&mute=1&loop=1"></iframe>
-        </div>
-    </section>
+<!-- Hero Section -->
+<section class="hero" id="home">
+    <div class="hero-text">
+        <h1>Welcome to EcoBin</h1>
+        <p>
+            Join us in making a difference: conveniently recycle your e-waste with our eco-friendly collection service, contributing to a cleaner, sustainable future.
+        </p>
+        <button class="add-items" onclick="location.href='add_item.html'">Add Items</button>
+    </div>
+    <div class="video-wrapper">
+        <iframe width="635" height="360" src="https://www.youtube.com/embed/JfU0107bVs8?autoplay=1&mute=1&loop=1"></iframe>
+    </div>
+</section>
 
-    <!--Services Section-->
-  <section class="services" id="services">
+<!--Services Section-->
+<section class="services" id="services">
     <div class="service-info">
-      <h2>Our Services</h2>
-      <br><br>
-      <p style="font-size: 1.3rem; font-weight: bold; text-align: center;">Explore our range of specialized e-waste services tailored to meet your needs and environmental goals. Our team offers secure data destruction, efficient collection, and responsible recycling solutions, ensuring your electronic devices are handled with the utmost care and environmental consciousness. We strive to streamline the process, providing convenient options for businesses and individuals alike to dispose of their e-waste responsibly.</p>
-      <br>
-      <p style="font-size: 1.3rem; font-weight: bold; text-align: center;">At our company, we're committed to sustainable practices and minimizing the environmental impact of electronic waste. By choosing our services, you not only safeguard sensitive data but also contribute to a greener future by diverting e-waste from landfills and promoting the circular economy. Join us in our mission to create a cleaner, more sustainable world, one device at a time.</p>
+        <h2>Our Services</h2>
+        <p>Explore our range of specialized e-waste services tailored to meet your needs and environmental goals. Our team offers secure data destruction, efficient collection, and responsible recycling solutions, ensuring your electronic devices are handled with the utmost care and environmental consciousness. We strive to streamline the process, providing convenient options for businesses and individuals alike to dispose of their e-waste responsibly.</p>
     </div>
     <div class="service-cards">
-      <div class="card">
-        <img src="images/recycle.jpg" alt="Recycle" class="image">
-        <div class="overlay">
-            <div class="text">
-                <h1 style="font-size: 2.5rem;">Recycling</h1>
-                <br>
-                <p>Obsolete electronics are valuable source for secondary raw materials, if treated properly. If not, they are a source of toxins and carcinogens. EcoBin specializes in the collection, segregation and recycling of these electronic equipment. We understand that some components and materials in the electronic equipment are re-usable.</p>
+        <div class="card">
+            <img src="images/recycle.jpg" alt="Recycle" class="image">
+            <div class="overlay">
+                <div class="text">
+                    <h1>Recycling</h1>
+                    <br>
+                    <p>Obsolete electronics are valuable source for secondary raw materials, if treated properly. If not, they are a source of toxins and carcinogens. EcoBin specializes in the collection, segregation and recycling of these electronic equipment. We understand that some components and materials in the electronic equipment are re-usable.</p>
+                </div>
             </div>
         </div>
-      </div>
-      <div class="card">
-        <img src="images/data-del.png" alt="Data Sanitization" class="image">
-        <div class="overlay">
-            <div class="text">
-                <h1 style="font-size: 2.5rem;">Data Sanitization</h1>
-                <br>
-                <p>Data Sanitization involves permenently deleting and destroying data from a storage device, to ensure it cannot be recovered. Data sanitization is a highly effective method for scrubbing the data off especially when your organization's confidentially matters</p>
+        <div class="card">
+            <img src="images/data-del.png" alt="Data Sanitization" class="image">
+            <div class="overlay">
+                <div class="text">
+                    <h1>Data Sanitization</h1>
+                    <br>
+                    <p>Data Sanitization involves permanently deleting and destroying data from a storage device, to ensure it cannot be recovered. Data sanitization is a highly effective method for scrubbing the data off especially when your organization's confidentiality matters</p>
+                </div>
             </div>
         </div>
-      </div>
-      <div class="card">
-        <img src="images/data-rec.jpg" alt="Asset Recovery" class="image">
-        <div class="overlay">
-            <div class="text">
-                <h1 style="font-size: 2.5rem;">Asset Recovery</h1>
-                <br>
-                <p>Asset recovery refers to the process of reclaiming or disposing of information technology equipment and devices, including computer equipments, in a responsible and efficient manner. The goal is to maximize returns on investment, minimize environmental impact, and ensure data security and privacy compliance.</p>
+        <div class="card">
+            <img src="images/data-rec.jpg" alt="Asset Recovery" class="image">
+            <div class="overlay">
+                <div class="text">
+                    <h1>Asset Recovery</h1>
+                    <br>
+                    <p>Asset recovery refers to the process of reclaiming or disposing of information technology equipment and devices, including computer equipment, in a responsible and efficient manner. The goal is to maximize returns on investment, minimize environmental impact, and ensure data security and privacy compliance.</p>
+                </div>
             </div>
         </div>
-      </div>
     </div>
-  </section>
-  
-  <!--Contact Section-->
-  <section class="contact" id="contact-us">
-      <h2 style="color: #ffffff; height: 20rem; align-items: center; display:grid; background-image: url('images/contact-bg.jpeg'); background-attachment: fixed; background-repeat: no-repeat; background-size: cover; background-color: #323232; background-blend-mode: overlay;">Contact Us</h2>
-      <section class="contact-info">
-    <div class="contact-links">
-      <ul>
-        <li><strong>Phone:</strong> <a href="tel:0123456789" style="color: #000000;">+91 0123456789</a></li>
-        <li><strong>Email:</strong> <a href="mailto:info@ecobin.com" style="color: #000000;">info@ecobin.com</a></li>
-        <li><strong>Location:</strong> Pillai College of Engineering, New Panvel</li>
-      </ul>
-    </div>
-      <div class="map-wrapper">
-        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3772.669319454159!2d73.12509517471877!3d18.99020605466122!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7e866de88667f%3A0xc1c5d5badc610f5f!2sPillai%20College%20of%20Engineering%2C%20New%20Panvel%20(Autonomous)!5e0!3m2!1sen!2sin!4v1707770577804!5m2!1sen!2sin" width="600" height="450" style="border:3rem;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-      </div>
-      </section>
-  </section>
+</section>
 
-  <footer>
-    <p style="text-align: center; padding: 40px; font-size: 1.35rem;">&copy; 2024 EcoBin | All rights reserved.</p>
-  </footer>
+<!--Contact Section-->
+<section class="contact" id="contact-us">
+    <h2>Contact Us</h2>
+    <section class="contact-info">
+        <div class="contact-links">
+            <ul>
+                <li><strong>Phone:</strong> <a href="tel:0123456789">+91 0123456789</a></li>
+                <li><strong>Email:</strong> <a href="mailto:info@ecobin.com">info@ecobin.com</a></li>
+                <li><strong>Location:</strong> Pillai College of Engineering, New Panvel</li>
+            </ul>
+        </div>
+        <div class="map-wrapper">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3772.669319454159!2d73.12509517471877!3d18.99020605466122!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7e866de88667f%3A0xc1c5d5badc610f5f!2sPillai%20College%20of%20Engineering%2C%20New%20Panvel%20(Autonomous)!5e0!3m2!1sen!2sin!4v1707770577804!5m2!1sen!2sin" width="600" height="450" style="border:3rem;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+    </section>
+</section>
+
+<footer>
+    <p>&copy; 2024 EcoBin | All rights reserved.</p>
+</footer>
 </body>
 </html>

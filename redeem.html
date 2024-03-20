@@ -1,15 +1,20 @@
 <!DOCTYPE html>
 <html>
    <style>
-      html {
-    scroll-behavior: smooth;
-         }
-
       * {
          margin: 0;
          padding: 0;
          box-sizing: border-box;
-         transition: 0.4s ease-in;
+         transition: 0.3s ease-in;
+         scroll-behavior: smooth !important;
+      }
+
+      body {
+         background-color: #5fbe7f;
+         background-image: url('images/bg.png');
+         background-repeat: repeat;
+         background-size: contain;
+         background-blend-mode: soft-light;
       }
 
       nav {
@@ -19,7 +24,7 @@
          align-items: center;
          max-height: 125px;
          padding: 1rem 1.5rem;
-         box-shadow: 2px 3px 2px #f1f1f1;
+         box-shadow: 2px 3px 2px #b0b0b0;
          position: sticky;
          top: 0;
          left: 0;
@@ -27,8 +32,8 @@
       }
 
       .logo {
-         max-width: 50%;
-         max-height: 50%
+         max-width: 60%;
+         max-height: 60%;
       }
 
       .check {
@@ -44,12 +49,34 @@
          padding-top: 5rem;
          font-size: 3rem;
       }
+
+      /*Responsive*/
+      @media screen and (max-width: 1080px) {
+         .logo {
+            height: 50%;
+            width: 50%;
+            }
+
+         .check{
+            max-width: 20% !important;
+            max-height: 20% !important;
+         }
+      }
+
+      /*Mobile*/
+      @media screen and (max-width: 480px) {
+         .check{
+            max-width: 35%  !important;
+            max-height: 35% !important;
+         }
+      }
+      
    </style>
    <head>
       <title>Redeemed Coins</title>
       <meta http-equiv = "refresh" content = "3; url = home.html" />
    </head>
-   <body style="background-color: #50C878;">
+   <body>
       <nav>
          <a href="home.html">
             <img src="images\demo_logo.png" class="logo">
