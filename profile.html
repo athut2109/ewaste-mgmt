@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Profile Page</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f2f2f2;
+        margin: 0;
+        padding: 0;
+    }
+
+    .container {
+        max-width: 800px;
+        margin: 50px auto;
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .profile-photo {
+        width: 200px;
+        height: 200px;
+        border-radius: 50%;
+        border: 2px solid #ccc;
+        overflow: hidden;
+        position: relative;
+        margin-bottom: 20px;
+    }
+
+    .profile-photo img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .profile-details {
+        display: flex;
+        align-items: center;
+    }
+
+    .profile-details .info {
+        margin-left: 20px;
+    }
+
+    .progress-bar {
+        width: 100%;
+        height: 20px;
+        background-color: #eee;
+        border-radius: 10px;
+        margin-bottom: 20px;
+    }
+
+    .progress {
+        height: 100%;
+        background-color: #007bff;
+        border-radius: 10px;
+        width: 0%; /* Initially set to 0% */
+    }
+
+    .item {
+        margin-bottom: 10px;
+        padding: 10px;
+        background-color: #f9f9f9;
+        border-radius: 5px;
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .item .quantity-btn {
+        cursor: pointer;
+    }
+
+    .request-btn {
+        padding: 10px 20px;
+        background-color: #007bff;
+        border: none;
+        color: #fff;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+</style>
+</head>
+<body>
+
+<div class="container">
+    <div class="profile-photo" onclick="openCamera()">
+        <!-- JavaScript will populate the image here -->
+        <img id="profileImage" src="placeholder.jpg" alt="Profile Photo">
+    </div>
+    <div class="profile-details">
+        <div class="info">
+            <p><strong>Name:</strong> John Doe</p>
+            <p><strong>Phone:</strong> 123-456-7890</p>
+            <p><strong>Email:</strong> johndoe@example.com</p>
+            <p><strong>Address:</strong> 123 Main Street, City</p>
+        </div>
+        <button onclick="editInfo()">Edit</button>
+    </div>
+    <div class="progress-bar">
+        <div class="progress" id="progress"></div>
+    </div>
+    <div class="item-list" id="itemList">
+        <!-- JavaScript will populate the item list here -->
+    </div>
+    <button class="request-btn" onclick="requestNow()">Request Now</button>
+</div>
+
+<script>
+    // Sample item data
+    const items = [
+        { name: "Item 1", weight: 1, quantity: 1 },
+        { name: "Item 2", weight: 2, quantity: 2 },
+        { name: "Item 3", weight: 1, quantity: 1 }
+    ];
+
+    // Function to populate the item list
+    function populateItemList() {
+        const itemList = document.getElementById('itemList');
+        itemList.innerHTML = ''; // Clear existing items
+
+        items.forEach(item => {
+            const itemContainer = document.createElement('div');
+            itemContainer.classList.add('item');
+
+            itemContainer.innerHTML = `
+                <div>
+                    <p><strong>Name:</strong> ${item.name}</p>
+                    <p><strong>Weight:</strong> ${item.weight} kg</p>
+                </div>
+                <div>
+                    <button class="quantity-btn" onclick="decreaseQuantity(${items.indexOf(item)})">-</button>
+                    <span>${item.quantity}</span>
+                    <button class="quantity-btn" onclick="increaseQuantity(${items.indexOf(item)})">+</button>
+                </div>
+            `;
+
+            itemList.appendChild(itemContainer);
+        });
+
+        updateProgressBar();
+    }
+
+    // Function to add an item
+    function addItem() {
+        const newItem = { name: "New Item", weight: 1, quantity: 1 };
+        items.push(newItem);
+        populateItemList();
+    }
+
+    // Function to remove an item
+    function removeItem(index) {
+        items.splice(index, 1);
+        populateItemList();
+    }
+
+    // Function to increase item quantity
+    function increaseQuantity(index) {
+        items[index].quantity++;
+        populateItemList();
+    }
+
+    // Function to decrease item quantity
+    function decreaseQuantity(index) {
+        if (items[index].quantity > 1) {
+            items[index].quantity--;
+            populateItemList();
+        }
+    }
+
+    // Function to update the progress bar
+    function updateProgressBar() {
+        const progress = document.getElementById('progress');
+        const totalWeight = items.reduce((acc, item) => acc + (item.weight * item.quantity), 0);
+        const progressPercentage = (totalWeight / 5) * 100; // Assuming max weight is 5 kg
+
+        progress.style.width = progressPercentage + '%';
+    }
+
+    // Function to open camera
+    function openCamera() {
+        // Placeholder function to open camera and capture photo
+        // In a real scenario, you would use HTML5 APIs or a library like WebRTC to achieve this
+        alert("Open camera to capture photo");
+    }
+
+    // Function to edit profile information
+    function editInfo() {
+        var name = prompt("Enter new name:");
+        var phone = prompt("Enter new phone number:");
+        var email = prompt("Enter new email address:");
+        var address = prompt("Enter new address:");
+
+        // Update displayed information
+        document.querySelector('.info').innerHTML = `
+            <p><strong>Name:</strong> ${name}</p>
+            <p><strong>Phone:</strong> ${phone}</p>
+            <p><strong>Email:</strong> ${email}</p>
+            <p><strong>Address:</strong> ${address}</p>
+        `;
+    }
+
+    // Function to handle requesting now
+    function requestNow() {
+        var itemList = document.getElementById('itemList');
+        var progress = document.getElementById('progress');
+
+        // Check if item list is empty
+        if (itemList.children.length === 0) {
+            alert("Item list is empty");
+        } else {
+            // JavaScript code to redirect to ordered.html
+            window.location.href = "ordered.html";
+
+            // Clear item list and reset progress bar
+            items.length = 0;
+            populateItemList(); // Repopulate item list after clearing
+        }
+    }
+
+    // Initial population of
+    populateItemList();
+</script>
+</body>
+</html>

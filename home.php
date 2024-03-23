@@ -1,3 +1,14 @@
+<?php
+//start session
+session_start();
+
+//if logged in or not
+//if(!isset($_SESSION['userid']) || $_SESSION['userid'] !== true){
+//    header("location: login.php");
+//    exit;
+//}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -70,17 +81,6 @@
             font-weight: bold;
         }
 
-        .nav-button {
-            color: white;
-            font-size: 16px;
-            background-color: #056c48;
-            padding: 15px 32px;
-            text-align: center;
-            font-weight: bold;
-            text-decoration: none;
-            border-width: 3px;
-        }
-
         .nav-button:hover {
             background-color: #009E60;
         }
@@ -111,11 +111,36 @@
             height: 50rem;
         }
 
+        .hero-text, .about-text{
+            padding: 0 5rem;
+        }
+
         .hero .hero-text p{
             padding: 2rem 3rem 2rem 0rem;
             color: #ffffff;
             font-size: 1.5rem;
             font-family: "Montserrat";
+        }
+
+        .about {
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+            height: 45rem;
+        }
+
+        .about .about-text p{
+            margin-top: -1rem;
+            padding: 2rem 0rem;
+            font-size: 1.5rem;
+            font-family: "Montserrat";
+        }
+
+        .process{
+            width: 840px;
+            height: 360px;
+            position: relative;
+            padding: 0 5rem;
         }
 
         .contact-info {
@@ -130,6 +155,7 @@
 
         .video-wrapper {
             position: relative;
+            padding: 0 5rem;
         }
 
         .contact-info ul {
@@ -156,16 +182,22 @@
         }
 
         h1 {
-            font-size: 5rem;
+            font-size: 5.5rem;
             color: #ffffff;
             font-family: "Barlow Condensed";
         }
 
         h2 {
             text-align: center;
-            font-size: 5rem;
+            font-size: 6rem;
             font-family: "Cinzel";
             margin-top: 2rem;
+        }
+
+        h3{
+            font-size: 3rem;
+            font-family: "Barlow Condensed";
+
         }
 
         .services {
@@ -182,7 +214,7 @@
             gap: 2rem;
             margin-top: 2rem;
             background-color: #ffffff30;
-            padding: 40px;
+            padding: 40px 20px;
             border-radius: 16px;
             box-shadow: 0 0 20px #000000;
             max-width: 1380px;
@@ -196,10 +228,23 @@
         }
 
         .services .service-info p{
-            font-size: 1.3rem;
-            margin: 2rem auto;
+            font-size: 26px;
+            margin: 5rem auto 3rem;
             font-weight: bold;
             text-align: center;
+        }
+
+        .service-title{
+            color: #ffffff;
+            height: 25rem;
+            align-items: center;
+            display: grid;
+            background-image: url('images/service-bg.jpeg');
+            background-attachment: fixed;
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-color: #323232;
+            background-blend-mode: overlay;
         }
 
         .service-cards .card h1{
@@ -241,9 +286,14 @@
             -ms-transform: translate(-50%, -50%);
         }
 
+        .text p{
+            margin-top: -15px;
+            font-size: 18px;
+        }
+
         .contact h2{
             color: #ffffff;
-            height: 20rem;
+            height: 25rem;
             align-items: center;
             display: grid;
             background-image: url('images/contact-us.jpg');
@@ -282,219 +332,258 @@
 
 /* Media Queries for responsiveness */
 
-        /*for windowed screen*/
-        @media screen and (max-width: 1080px){
-            .hero {
-                flex-direction: column;
-                text-align: center;
-            }
+    /*for windowed screen*/
+    @media screen and (max-width: 1280px){
+        .hero, .about {
+            flex-direction: column;
+            text-align: center;
+            padding: 0;
+        }
 
-            .hero-text {
-                margin: 0;
-            }
+        .hero-text, .about-text {
+            margin: 0;
+        }
 
-            .hero .hero-text p{
-                text-align: center;
-                margin-top: 1rem;
-                padding: 1rem 3rem;
+        .video-wrapper{
+            padding: 0;
+        }
 
-            }
+        .process{
+            width: 635 !important;
+            height: 360 !important;
+            padding: 0;
+        }
 
-            .logo {
+        .hero .hero-text p{
+            text-align: center;
+            margin-top: 1rem;
+            padding: 1rem 3rem;
+        }
+
+        .about .about-text p{
+            font-size: 20px;
+            margin-bottom: -15px;
+        }
+
+        .logo {
             height: 50% !important;
             width: 50% !important;
-            }
-
-            h1, h2{
-                font-size: 4rem;
-            }
-
-            .nav-button{
-                font-size: 14px;
-                padding: 15px 15px;
-            }
-
-            .nav-item{
-                margin-left: 1.3rem;
-                margin-right: 1.3rem;
-                font-size: 18px;
-            }
-
-            .text{
-                font-size: 14px;
-            }
-
-            .contact-links{
-                margin-left: 3rem;
-            }
-
-            .map-wrapper iframe{
-                width: 360px !important;
-                height: 300px !important;
-                margin-right: 3rem;
-            }
         }
 
-        /*For Tablet*/
-        @media screen and (max-width: 768px) {
-            .hero {
-                flex-direction: column;
-                text-align: center;
-            }
+        h1, h2{
+            font-size: 4rem;
+        }
 
-            .hero-text {
-                margin: 0;
-            }
+        .nav-item{
+            margin-left: 1.3rem;
+            margin-right: 1.3rem;
+            font-size: 18px;
+        }
 
-            .add-items {
+        .text{
+            font-size: 14px;
+        }
+
+        .contact-links{
+            margin-left: 3rem;
+        }
+
+        .map-wrapper iframe{
+            width: 360px !important;
+            height: 300px !important;
+            margin-right: 3rem;
+        }
+    }
+
+    /*For Tablet*/
+    @media screen and (max-width: 768px) {
+        .hero, .about {
+            flex-direction: column;
+            text-align: center;
+        }
+
+        .hero-text, .about-text {
+            margin: 0;
+        }
+
+        .add-items {
             margin-top: 2rem;
             padding: 12px 28px;
             font-size: 16px;
-            }
+        }
 
-            .video-wrapper iframe {
-                margin-top: -5rem;
-                width: 480px;
-            }
+        .video-wrapper iframe {
+            margin-top: -5rem;
+            width: 480px;
+        }
 
-            .services{
-                justify-content: center;
-                align-items: center;
-            }
+        .process{
+            margin-top: 1rem;
+            width: 640px;
+            height: 300px;
+        }
 
-            .service-cards {
-                width: 70%;
-                margin: 1rem auto;
-            }
+        .services{
+            justify-content: center;
+            align-items: center;
+        }
 
-            .card {
-                width: 100%;
-                height: 50% !important;
-            }
+        .service-cards {
+            width: 70%;
+            margin: 1rem auto;
+        }
 
-            .service-cards .card p{
-                font-size: 18px;
-            }
+        .card {
+            width: 100%;
+        }
 
-            .services .service-info p{
+        .service-cards .card p{
+            font-size: 18px;
+        }
+
+        .services .service-info p{
             font-size: 1rem;
-            margin-bottom: 2rem;
-            }
-
-            .contact h2{
-                height: 12rem;
-            }
-
-            .contact-info {
-                flex-direction: column;
-                text-align: center;
-            }
-
-            .contact-links{
-                margin-left: 0;
-            }
-
-            .map-wrapper iframe{
-                margin-right: 0rem;
-            }
-
-            .nav-button{
-                font-size: 14px;
-                padding: 10px 26px;
-            }
-
-            .nav-item{
-                margin-left: 1rem;
-                margin-right: 1rem;
-                font-size: 16px;
-            }
-
-            .logo {
-            height: 50%;
-            width: 50%;
-            }
-
-            h1, h2{
-                font-size: 3rem;
-            }
-
-            .hero .hero-text p{
-                text-align: center;
-                padding: 1rem 5rem;
-                font-size: 18px;
-            }
+            margin: 2rem auto;
         }
 
-        /*For Mobile*/
-        @media screen and (max-width: 480px) {
-            .add-items {
+        .service-title, .contact h2{
+            height: 17rem !important;
+        }
+
+        .about .about-text p{
+            font-size: 15px;
+            margin-top: -20px;
+            margin-bottom: -30px;
+        }
+
+        .text p{
+            margin-top: 0;
+        }
+
+        .contact h2{
+            height: 12rem;
+        }
+
+        .contact-info {
+            flex-direction: column;
+            text-align: center;
+        }
+
+        .contact-links{
+            margin-left: 0;
+        }
+
+        .map-wrapper iframe{
+            margin-right: 0rem;
+        }
+
+        .nav-item{
+            margin-left: 1rem;
+            margin-right: 1rem;
+            font-size: 16px;
+        }
+
+        .logo {
+            height: 50%;
+            width: 50%;
+        }
+
+        h1, h2{
+            font-size: 3rem;
+        }
+
+        h3{
+            font-size: 2rem;
+        }
+
+        .hero .hero-text p{
+            text-align: center;
+            padding: 1rem 5rem;
+            font-size: 18px;
+        }
+    }
+
+    /*For Mobile*/
+    @media screen and (max-width: 480px) {
+        .add-items {
             margin-top: 2rem;
             padding: 12px 28px;
             font-size: 16px;
-            }
+        }
 
-            .video-wrapper iframe {
-                margin-top: -5rem;
-                width: 360px;
-                height: 240px;
-            }
+        .video-wrapper iframe {
+            margin-top: -5rem;
+            width: 360px;
+            height: 240px;
+        }
 
-            .service-cards {
-                width: 90%;
-                margin: 1rem auto;
-            }
+        .process{
+            width: 400px;
+            height: 240px;
+            margin-bottom: 25px;
+        }
 
-            .card {
-                width: 100%;
-                height: 30% !important;
-            }
+        .about .about-text p{
+            font-size: 14px;
+            margin-top: -25px;
+            margin-bottom: -50px;
+        }
 
-            .service-cards .card p{
-                font-size: 14px;
-            }
+        .service-cards {
+            width: 90%;
+            margin: 1rem auto;
+        }
 
-            .nav-button{
-                font-size: 10px;
-                padding: 10px 18px;
-            }
+        .card {
+            width: 100%;
+        }
 
-            .nav-item{
-                margin-left: .5rem;
-                margin-right: .5rem;
-                font-size: 10px;
-            }
+        .image{
+            height: 360px !important;
+        }
 
-            .logo {
+        .service-cards .card p{
+            font-size: 14px;
+        }
+
+        .nav-item{
+            margin-left: .5rem;
+            margin-right: .5rem;
+            font-size: 10px;
+        }
+
+        .logo {
             height: 50%;
             width: 50%;
-            }
+        }
 
-            h1, h2{
-                font-size: 2.5rem;
-            }
+        h1, h2{
+            font-size: 2.5rem;
+        }
 
-            .hero .hero-text p{
-                text-align: center;
-                padding: 1rem 3rem;
-                font-size: 18px;
-            }
+        .hero .hero-text p{
+            text-align: center;
+            padding: 1rem 3rem;
+            font-size: 18px;
+        }
 
-            .contact-links ul li{
-                font-size: 18px;
-            }
+        .contact-links ul li{
+            font-size: 18px;
+        }
 
-            footer{
-                height: 3rem;
-            }
-            
-            footer p{
+        footer{
+            height: 3rem;
+        }
+        
+        footer p{
             text-align: center;
             justify-content: center;
             padding: 10px 0;
             font-size: 14px;
-            }
         }
+    }
     </style>
+
 </head>
 <body>
 <!--Navigation Bar-->
@@ -513,9 +602,6 @@
             </li>
             <li class="nav-item">
                 <a href="#contact-us" class="nav-link">Contact</a>
-            </li>
-            <button type="button" class="nav-button" onclick="location.href='ordered.html'">Request Now</button>
-        </ul>
     </a>
 </nav>
 
@@ -533,10 +619,35 @@
     </div>
 </section>
 
+<!--About Section-->
+<section class="about" id="about">
+    <div class="about-image">
+        <image  src="images\e-waste-process.jpg" alt="E-Waste Process" class="process">
+    </div>
+    <div class="about-text">
+        <h3>What is EcoBin?</h3>
+        <p>
+            EcoBin is a group of companies focused on
+            providing customer-centric technology solutions and services through the
+            best environment-friendly practices. EcoBin's unique business model provides an
+            entire life cycle of Green IT products through its IT solution centers, remotely
+            managed services, advanced level repair, refurbishing and ewaste
+            management.
+            <br><br>
+            EcoBin specializes in e-waste management and disposal. Our
+            process of e-waste recycling prioritizes environmental
+            protection. It also seeks to prioritize proper handling,
+            processing and managing environmentally hazardous
+            substances that are present in the e-waste.
+        </p>
+        <button class="add-items" onclick="location.href='add_item.html'">Add Items</button>
+    </div>
+</section>
+
 <!--Services Section-->
+<h2 class="service-title">Our Services</h2>
 <section class="services" id="services">
     <div class="service-info">
-        <h2>Our Services</h2>
         <p>Explore our range of specialized e-waste services tailored to meet your needs and environmental goals. Our team offers secure data destruction, efficient collection, and responsible recycling solutions, ensuring your electronic devices are handled with the utmost care and environmental consciousness. We strive to streamline the process, providing convenient options for businesses and individuals alike to dispose of their e-waste responsibly.</p>
     </div>
     <div class="service-cards">
