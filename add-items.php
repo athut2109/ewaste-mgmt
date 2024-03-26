@@ -50,12 +50,13 @@ mysqli_close($db);
 
 <!DOCTYPE html>
 <html lang="en">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat|Barlow Condensed|Cinzel">
 <style>
     body {
-    font-family: Arial, sans-serif;
+    font-family: "Montserrat";
     margin: 0;
     padding: 0;
-    color: #2ea27b;
+    background-color: #2ea27b;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -84,6 +85,11 @@ mysqli_close($db);
         margin: 25px auto;
         font-size: 18px;
         margin-left:15px;
+        font-family: "Barlow Condensed";
+    }
+
+    .form-group label{
+        font-size: 22px;
     }
 
     .form-control{
@@ -92,11 +98,13 @@ mysqli_close($db);
         font-size: 18px;
         justify-content: end;
         margin-right:  0px;
+        font-family: "Montserrat";
     }
 
     h2{
         font-size: 48px;
         margin-top: 0px;
+        font-family: "Cinzel";
     }
 
     .col-md-12 p{
@@ -122,6 +130,7 @@ mysqli_close($db);
     cursor: pointer;
     margin: 5px;
     font-size: 18px;
+    font-family: "Montserrat";
     }
 
     .profile-section {
@@ -170,11 +179,11 @@ mysqli_close($db);
 <div class="form">
 <form action="" method="post">
 <div class="form-group">
-<label>Item Name</label>
+<label>Item Name:</label>
 <input type="text" name="name" class="form-control" required>
 </div>
 <div class="form-group">
-<label>Weight (in kgs):</label>
+<label>One unit Weight(kgs):</label>
 <input type="weight" name="weight" class="form-control" required>
 </div>
 <div class="form-group" style="margin-bottom: 40px;">

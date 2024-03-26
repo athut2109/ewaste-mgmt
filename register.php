@@ -60,9 +60,10 @@ mysqli_close($db);
 
 <!DOCTYPE html>
 <html lang="en">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat|Barlow Condensed|Cinzel">
 <style>
     body {
-    font-family: Arial, sans-serif;
+    font-family: "Montserrat";
     margin: 0;
     padding: 0;
     background: url('https://tcocertified.com/wp-content/uploads/2019/10/international-e-waste-day.jpg') center/cover no-repeat fixed;
@@ -86,6 +87,7 @@ mysqli_close($db);
         margin-right:15px;
         text-align: start;
         justify-content: start;
+        font-family: "Barlow  Condensed";
     }
 
     .form-group{
@@ -103,11 +105,13 @@ mysqli_close($db);
         font-size: 18px;
         justify-content: end;
         margin-right:  0px;
+        font-family: "Montserrat";
     }
 
     h2{
         font-size: 48px;
         margin-top: 0px;
+        font-family: "Cinzel";
     }
 
     .col-md-12 p{
@@ -133,6 +137,7 @@ mysqli_close($db);
     cursor: pointer;
     margin: 5px;
     font-size: 18px;
+    font-family: "Montserrat";
     }
 
     .login-section {

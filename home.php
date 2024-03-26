@@ -612,7 +612,7 @@ session_start();
         <p>
             Join us in making a difference: conveniently recycle your e-waste with our eco-friendly collection service, contributing to a cleaner, sustainable future.
         </p>
-        <button class="add-items" onclick="location.href='add_item.html'">Add Items</button>
+        <button class="add-items" onclick="location.href='add-items.php'">Add Items</button>
     </div>
     <div class="video-wrapper">
         <iframe width="635" height="360" src="https://www.youtube.com/embed/JfU0107bVs8?autoplay=1&mute=1&loop=1"></iframe>
@@ -640,7 +640,7 @@ session_start();
             processing and managing environmentally hazardous
             substances that are present in the e-waste.
         </p>
-        <button class="add-items" onclick="location.href='add_item.html'">Add Items</button>
+        <button class="add-items" onclick="location.href='add-items.php'">Add Items</button>
     </div>
 </section>
 

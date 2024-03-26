@@ -24,13 +24,21 @@ while ($rowItem = $resultItems->fetch_assoc()) {
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Profile Page</title>
-
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat|Barlow Condensed|Cinzel">
 <style>
     body {
-        font-family: Arial, sans-serif;
+        font-family: "Montserrat";
         background-color: #2ea27b;
         margin: 0;
         padding: 0;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .home-section p a{
+        color: blue;
+        font-size: 17px;
+        text-decoration: none;
     }
 
     .profile-container {
@@ -79,6 +87,7 @@ while ($rowItem = $resultItems->fetch_assoc()) {
 
     .profile-details .info {
         margin-left: 20px;
+        font-size: 18px;
     }
 
     .item {
@@ -89,10 +98,23 @@ while ($rowItem = $resultItems->fetch_assoc()) {
         border-radius: 5px;
         display: flex;
         justify-content: space-between;
+        align-items: center;
     }
 
     .item .quantity-btn {
         cursor: pointer;
+    }
+
+    h2{
+        font-family: "Cinzel";
+        text-align: center;
+        font-size: 36px;
+    }
+
+    .info strong{
+        font-family: "Barlow Condensed";
+        font-size: 24px;
+        font-weight: "bold";
     }
 
     .btns{
@@ -107,16 +129,20 @@ while ($rowItem = $resultItems->fetch_assoc()) {
         color: #fff;
         border-radius: 5px;
         cursor: pointer;
+        font-size: 16px;
+        font-family: "Montserrat";  
     }
 
     .delete-btn{
-        padding: 8px 16px;
-        background-color: #ff6347;
-        color: #fff;
+        padding: 10px 20px;
+        background-color: red;
+        color: #ffffff;
         border: none;
         border-radius: 5px;
         cursor: pointer;
         transition: background-color 0.3s;
+        font-size: 16px;
+        font-family: "Montserrat";
     }
 
     .delete-btn:hover{
@@ -134,6 +160,10 @@ while ($rowItem = $resultItems->fetch_assoc()) {
 </head>
 <body>
 <section class="profile-container">
+    <div class="home-section" style="margin-bottom: -15px;">
+        <p><a href="home.php">&larr; Back to Home</a></p>
+    </div>
+    <h2>Profile Info</h2><br/>
 <div class="profile-info">
     <div class="profile-photo">
         <img id="profileImage" src="<?php echo $row['photo']; ?>">
@@ -168,21 +198,21 @@ while ($rowItem = $resultItems->fetch_assoc()) {
     </div>
 </div>
 <br><br>
+<h2>Items List</h2>
 <div class="item-list" id="itemList">
         <!-- PHP will populate the item list here -->
         <?php foreach ($items as $index => $item): ?>
             <div class="item" id="item_<?php echo $item['id']; ?>">
-                <div>
-                    <p><strong>Name:</strong> <?php echo $item['name']; ?></p>
-                    <p><strong>Weight:</strong> <?php echo $item['weight']; ?> kg</p>
-                    <p><strong>Quantity:</strong> <?php echo $item['qty']; ?> qty</p>
-                </div>
+                <p><strong>Name:</strong> <?php echo $item['name']; ?></p>
+                <p><strong>Weight:</strong> <?php echo $item['weight']; ?> kg</p>
+                <p><strong>Quantity:</strong> <?php echo $item['qty']; ?> qty</p>
                 <div>
                     <button class="delete-btn" onclick="deleteItem(<?php echo $item['id']; ?>)">Delete</button>
                 </div>
             </div>
         <?php endforeach; ?>
     </div>
+    <br>
     <div class="btns">
     <button class="request-btn" onclick="requestNow()">Request Now</button>
     <button class="add-btn" onclick="location.href='add-items.php'">Add Item</button>
