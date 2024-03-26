@@ -26,6 +26,7 @@ $query->execute();
 
 $result = $query->get_result();
 $row = $result->fetch_assoc();
+
 if ($row) {
 if (password_verify($password, $row['password'])) {
 $_SESSION["userid"] = $row['id'];
@@ -53,15 +54,15 @@ mysqli_close($db);
 
 <style>
     body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    background: url('https://tcocertified.com/wp-content/uploads/2019/10/international-e-waste-day.jpg') center/cover no-repeat fixed;
-    color: white;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background: url('https://tcocertified.com/wp-content/uploads/2019/10/international-e-waste-day.jpg') center/cover no-repeat fixed;
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
     }
 
     .form-group label{
@@ -86,6 +87,10 @@ mysqli_close($db);
         font-size: 18px;
         justify-content: end;
         margin-right:  20px;
+    }
+
+    .error-msg{
+        color: brown;
     }
 
     h2{
@@ -153,7 +158,11 @@ mysqli_close($db);
 <h2>Login</h2>
 <p>Please fill in your email and password.</p>
 <br>
+
+<div class="error-msg">
 <?php echo $error; ?>
+</div>
+
 <form action="" method="post">
 <div class="form-group">
 <label>Email Address</label>

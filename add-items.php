@@ -8,17 +8,15 @@ $error = '';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
 
-$fullname = trim($_POST['name']);
-$email = trim($_POST['email']);
-$password = trim($_POST['password']);
-$confirm_password = trim($_POST["confirm_password"]);
-$password_hash = password_hash($password, PASSWORD_BCRYPT);
+$itemname = trim($_POST['name']);
+$weight = trim($_POST['weight']);
+$quantity = trim($_POST['qty']);
 
-if($query = $db->prepare("SELECT * FROM users WHERE email = ?")) {
+if($query = $db->prepare("SELECT * FROM list WHERE name = ?")) {
 $error = '';
 
 // Bind parameters (s = string, i = int, b = blob, etc), in our case the username is a string so we use 's'
-$query->bind_param('s', $email);
+$query->bind_param('s', $itemname);
 $query->execute();
 
 // Store the result so we can check if the account exists in the database.
@@ -27,24 +25,16 @@ if ($query->num_rows > 0) {
 $error .= '<p class="error">The email address is already registered!</p>';
 } else {
 // Validate password
-if (strlen($password ) < 8) {
-$error .= '<p class="error">Password must have atleast 8 characters.</p>';
+if ($quantity < 1) {
+$error .= '<p class="error">Item must have atleast 1 quantity.</p>';
 }
 
-// Validate confirm password
-if (empty($confirm_password)) {
-$error .= '<p class="error">Please enter confirm password.</p>';
-} else {
-if (empty($error) && ($password != $confirm_password)) {
-$error .= '<p class="error">Password did not match.</p>';
-}
-}
 if (empty($error) ) {
-$insertQuery = $db->prepare("INSERT INTO users (name, email, password) VALUES (?, ?, ?);");
-$insertQuery->bind_param("sss", $fullname, $email, $password_hash);
+$insertQuery = $db->prepare("INSERT INTO list (name, weight, qty) VALUES (?, ?, ?);");
+$insertQuery->bind_param("sdi", $itemname, $weight, $quantity);
 $result = $insertQuery->execute();
 if ($result) {
-$success .= '<p class="success">Your registration was successful!</p>';
+$success .= '<p class="success">Your item was added successful!</p>';
 } else {
     $error .= '<p class="error">Something went wrong!</p>';
 }
@@ -65,8 +55,7 @@ mysqli_close($db);
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    background: url('https://tcocertified.com/wp-content/uploads/2019/10/international-e-waste-day.jpg') center/cover no-repeat fixed;
-    color: white;
+    color: #2ea27b;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -115,8 +104,8 @@ mysqli_close($db);
         margin-top: -30px;
     }
 
-    .register-container {
-    background-color: #2ea27b;
+    .add-container {
+    background-color: white;
     padding: 40px;
     border-radius: 16px;
     box-shadow: 0 0 20px #000000;
@@ -124,7 +113,7 @@ mysqli_close($db);
     text-align: center;
     }
 
-    .signup-btn {
+    .add-btn {
     background-color: #00710b;
     color: white;
     padding: 14px 36px;
@@ -135,24 +124,24 @@ mysqli_close($db);
     font-size: 18px;
     }
 
-    .login-section {
+    .profile-section {
     margin-top: 20px;
     }
 
-    .login-section a {
+    .profile-section a {
     text-decoration: none;
     }
 
     /* Media query for screens with a maximum width of 768px */
     @media only screen and (max-width: 768px) {
-    .register-container {
+    .add-container {
         width: 300px;
     }
     }
 
     /* Media query for screens with a maximum width of 480px */
     @media only screen and (max-width: 480px) {
-        .register-container {
+        .add-container {
         width: 225px;
     }
     }
@@ -161,14 +150,14 @@ mysqli_close($db);
 
 <head>
 <meta charset="UTF-8">
-<title>Sign Up</title>
+<title>Add Items</title>
 </head>
 <body>
-<div class="register-container">
+<div class="add-container">
 <div class="row">
 <div class="col-md-12">
-<h2>Register</h2>
-<p>Please fill this form to create an account.</p>
+<h2>Add Item</h2>
+<p>Please fill this form to add an item to the list.</p>
 <br>
 
 <div class="success-msg">
@@ -181,26 +170,22 @@ mysqli_close($db);
 <div class="form">
 <form action="" method="post">
 <div class="form-group">
-<label>Full Name</label>
+<label>Item Name</label>
 <input type="text" name="name" class="form-control" required>
 </div>
 <div class="form-group">
-<label>Email Address</label>
-<input type="email" name="email" class="form-control" required>
-</div>
-<div class="form-group">
-<label>Password</label>
-<input type="password" name="password" class="form-control" required>
+<label>Weight (in kgs):</label>
+<input type="weight" name="weight" class="form-control" required>
 </div>
 <div class="form-group" style="margin-bottom: 40px;">
-<label>Confirm Password</label>
-<input type="password" name="confirm_password" class="form-control" required>
+<label>Quantity: </label>
+<input type="qty" name="qty" class="form-control" required>
 </div>
 <div class="form-group" style="justify-content: center;">
-<input type="submit" name="submit" class="signup-btn" value="Submit">
+<input type="submit" name="submit" class="add-btn" value="Add">
 </div>
-<div class="login-section">
-<p style="margin-top: 0">Already have an account? <a href="login.php">Login here</a></p>
+<div class="profile-section">
+<p style="margin-top: 0">Want to see your list? <a href="profile.php">Go to Profile Page</a></p>
 </div>
 </form>
 </div>

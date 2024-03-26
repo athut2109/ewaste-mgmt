@@ -588,14 +588,14 @@ session_start();
 <body>
 <!--Navigation Bar-->
 <nav>
-    <a href="home.html">
+    <a href="home.php">
         <img src="images\demo_logo.png" class="logo">
         <ul style="display: flex;  justify-content: space-between;  align-items: center;">
             <li class="nav-item">
                 <a href="#home" class="nav-link">Home</a>
             </li>
             <li class="nav-item">
-                <a href="profile.html" class="nav-link">Profile</a>
+                <a href="profile.php" class="nav-link">Profile</a>
             </li>
             <li class="nav-item">
                 <a href="#services" class="nav-link">Services</a>
