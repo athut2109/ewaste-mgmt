@@ -53,14 +53,18 @@ mysqli_close($db);
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat|Barlow Condensed|Cinzel">
 <style>
     body {
-    font-family: "Montserrat";
-    margin: 0;
-    padding: 0;
-    background-color: #2ea27b;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
+        font-family: "Montserrat";
+        margin: 0;
+        padding: 0;
+        background-color: #2ea27b;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        background-image: url('images/bg.png');
+        background-repeat: repeat;
+        background-size: contain;
+        background-blend-mode: soft-light;
     }
 
     .error-msg{
@@ -194,7 +198,7 @@ mysqli_close($db);
 <input type="submit" name="submit" class="add-btn" value="Add">
 </div>
 <div class="profile-section">
-<p style="margin-top: 0">Want to see your list? <a href="profile.php">Go to Profile Page</a></p>
+<p style="margin-top: 0">Want to see your list? <a href="profile.php" style="text-decoration: none; color: blue;">Go to Profile Page</a></p>
 </div>
 </form>
 </div>

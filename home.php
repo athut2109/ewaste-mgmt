@@ -1,14 +1,3 @@
-<?php
-//start session
-session_start();
-
-//if logged in or not
-//if(!isset($_SESSION['userid']) || $_SESSION['userid'] !== true){
-//    header("location: login.php");
-//    exit;
-//}
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -595,13 +584,17 @@ session_start();
                 <a href="#home" class="nav-link">Home</a>
             </li>
             <li class="nav-item">
-                <a href="profile.php" class="nav-link">Profile</a>
+                <a href="#about" class="nav-link">About</a>
             </li>
             <li class="nav-item">
                 <a href="#services" class="nav-link">Services</a>
             </li>
             <li class="nav-item">
                 <a href="#contact-us" class="nav-link">Contact</a>
+            </li>
+            <li class="nav-item">
+                <a href="profile.php" class="nav-link">Profile</a>
+            </li>
     </a>
 </nav>
 
@@ -645,8 +638,8 @@ session_start();
 </section>
 
 <!--Services Section-->
-<h2 class="service-title">Our Services</h2>
-<section class="services" id="services">
+<h2 class="service-title" id="services">Our Services</h2>
+<section class="services">
     <div class="service-info">
         <p>Explore our range of specialized e-waste services tailored to meet your needs and environmental goals. Our team offers secure data destruction, efficient collection, and responsible recycling solutions, ensuring your electronic devices are handled with the utmost care and environmental consciousness. We strive to streamline the process, providing convenient options for businesses and individuals alike to dispose of their e-waste responsibly.</p>
     </div>

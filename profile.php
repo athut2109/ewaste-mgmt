@@ -8,7 +8,7 @@ $query->execute();
 $result = $query->get_result();
 $row = $result->fetch_assoc();
 
-$queryItems = $db->prepare("SELECT * FROM list"); // Modified table name to "list"
+$queryItems = $db->prepare("SELECT * FROM list");
 $queryItems->execute();
 $resultItems = $queryItems->get_result();
 $items = [];
@@ -33,6 +33,10 @@ while ($rowItem = $resultItems->fetch_assoc()) {
         padding: 0;
         align-items: center;
         justify-content: center;
+        background-image: url('images/bg.png');
+        background-repeat: repeat;
+        background-size: contain;
+        background-blend-mode: soft-light;
     }
 
     .home-section p a{
@@ -90,11 +94,18 @@ while ($rowItem = $resultItems->fetch_assoc()) {
         font-size: 18px;
     }
 
+    .profile-btns {
+        display: flex;
+        align-items: center;
+        gap: 75px;
+        justify-content: space-between;
+    }
+
     .item {
         margin-bottom: 10px;
         color: ;
         padding: 10px;
-        background-color: #f9f9f9;
+        background-color: #BEE6D1;
         border-radius: 5px;
         display: flex;
         justify-content: space-between;
@@ -122,18 +133,28 @@ while ($rowItem = $resultItems->fetch_assoc()) {
         justify-content: space-around;
     }
 
-    .request-btn, .edit-btn, .add-btn {
-        padding: 10px 20px;
+    .request-btn, .add-btn {
+        padding: 14px 30px;
         background-color: green;
         border: none;
         color: #fff;
-        border-radius: 5px;
         cursor: pointer;
         font-size: 16px;
         font-family: "Montserrat";  
     }
 
-    .delete-btn{
+    .edit-btn{
+        padding: 10px 20px;
+        background-color: green;
+        border: none;
+        border-radius: 4px;
+        color: #fff;
+        cursor: pointer;
+        font-size: 16px;
+        font-family: "Montserrat";
+    }
+
+    .delete-btn, .logout-btn{
         padding: 10px 20px;
         background-color: red;
         color: #ffffff;
@@ -145,12 +166,12 @@ while ($rowItem = $resultItems->fetch_assoc()) {
         font-family: "Montserrat";
     }
 
-    .delete-btn:hover{
+    .delete-btn:hover,  .logout-btn:hover{
         background-color: #cc4c37;
     }
 
     /* Adjust margin or padding as needed */
-    .delete-btn {
+    .delete-btn, .logout-btn {
         margin-right: 8px;
     }
 
@@ -190,10 +211,15 @@ while ($rowItem = $resultItems->fetch_assoc()) {
             echo $row['address'];
             ?>
             </p>
+            <div class="profile-btns">
+                <div>
             <form method="post" action="update-process.php?id=<?php echo $row["id"];?>">
                 <input type="hidden" name="id" value="<?php echo $row['id']; ?>">
                 <button class="edit-btn" type="submit" name="submit">Edit</button>
-            </form>
+                </div>
+                </form>
+                <div><button class="logout-btn" onclick="location.href='login.php'">Log Out</button></div>
+            </div>
         </div>
     </div>
 </div>
