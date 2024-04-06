@@ -6,46 +6,39 @@ require_once "session.php";
 $success = '';
 $error = '';
 
+// Check if user is logged in
+if (!isset($_SESSION["userid"])) {
+    // Redirect to login page if not logged in
+    header("Location: login.php");
+    exit;
+}
+
+// Get the user ID of the logged-in user
+$userId = $_SESSION["userid"];
+
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
+    $itemName = trim($_POST['name']);
+    $weight = trim($_POST['weight']);
+    $quantity = trim($_POST['qty']);
 
-$itemname = trim($_POST['name']);
-$weight = trim($_POST['weight']);
-$quantity = trim($_POST['qty']);
-
-if($query = $db->prepare("SELECT * FROM list WHERE name = ?")) {
-$error = '';
-
-// Bind parameters (s = string, i = int, b = blob, etc), in our case the username is a string so we use 's'
-$query->bind_param('s', $itemname);
-$query->execute();
-
-// Store the result so we can check if the account exists in the database.
-$query->store_result();
-if ($query->num_rows > 0) {
-$error .= '<p class="error">The email address is already registered!</p>';
-} else {
-// Validate password
-if ($quantity < 1) {
-$error .= '<p class="error">Item must have atleast 1 quantity.</p>';
+    // Validate inputs
+    if (empty($itemName) || empty($weight) || empty($quantity)) {
+        $error .= '<p class="error">Please fill in all fields.</p>';
+    } else {
+        // Prepare and execute the INSERT statement
+        $insertQuery = $db->prepare("INSERT INTO list (name, weight, qty, user_id) VALUES (?, ?, ?, ?)");
+        $insertQuery->bind_param("sdis", $itemName, $weight, $quantity, $userId);
+        if ($insertQuery->execute()) {
+            $success .= '<p class="success">Your item was added successfully!</p>';
+        } else {
+            $error .= '<p class="error">Something went wrong!</p>';
+        }
+    }
 }
 
-if (empty($error) ) {
-$insertQuery = $db->prepare("INSERT INTO list (name, weight, qty) VALUES (?, ?, ?);");
-$insertQuery->bind_param("sdi", $itemname, $weight, $quantity);
-$result = $insertQuery->execute();
-if ($result) {
-$success .= '<p class="success">Your item was added successful!</p>';
-} else {
-    $error .= '<p class="error">Something went wrong!</p>';
-}
-}
-}
-}
-$query->close();
-
-// Close DB connection
+// Close the database connection
 mysqli_close($db);
-}
+
 ?>
 
 <!DOCTYPE html>
