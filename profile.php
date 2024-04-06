@@ -3,12 +3,24 @@
 require_once "config.php";
 require_once "session.php";
 
-$query = $db->prepare("SELECT * FROM users");
+// Check if user is logged in
+if (!isset($_SESSION["userid"])) {
+    // Redirect to login page if not logged in
+    header("Location: login.php");
+    exit;
+}
+
+// Fetch data for the logged-in user
+$userId = $_SESSION["userid"];
+$query = $db->prepare("SELECT * FROM users WHERE id = ?");
+$query->bind_param("i", $userId);
 $query->execute();
 $result = $query->get_result();
 $row = $result->fetch_assoc();
 
-$queryItems = $db->prepare("SELECT * FROM list");
+// Fetch items for the logged-in user
+$queryItems = $db->prepare("SELECT * FROM list WHERE user_id = ?");
+$queryItems->bind_param("i", $userId);
 $queryItems->execute();
 $resultItems = $queryItems->get_result();
 $items = [];
@@ -17,6 +29,7 @@ while ($rowItem = $resultItems->fetch_assoc()) {
 }
 
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -58,14 +71,6 @@ while ($rowItem = $resultItems->fetch_assoc()) {
         display: flex;
         align-items: center;
         justify-content: space-around;
-    }
-
-    .min-max{
-        display: flex;
-        justify-content: space-between;
-        margin-top: -25px;
-        font-family: Arial, sans-serif;
-        font-weight: bold;
     }
 
     .profile-photo {
@@ -110,6 +115,12 @@ while ($rowItem = $resultItems->fetch_assoc()) {
         display: flex;
         justify-content: space-between;
         align-items: center;
+        flex-wrap: wrap;
+    }
+
+    .item p {
+        flex: 1; /* Distribute the space evenly among paragraphs */
+        margin: 0; /* Remove default margin */
     }
 
     .item .quantity-btn {
@@ -136,7 +147,9 @@ while ($rowItem = $resultItems->fetch_assoc()) {
     .request-btn, .add-btn {
         padding: 14px 30px;
         background-color: green;
-        border: none;
+        border: solid;
+        border-width: 2px;
+        border-color: #000000;
         color: #fff;
         cursor: pointer;
         font-size: 16px;
@@ -146,11 +159,26 @@ while ($rowItem = $resultItems->fetch_assoc()) {
     .edit-btn{
         padding: 10px 20px;
         background-color: green;
-        border: none;
-        border-radius: 4px;
+        border: solid;
+        border-width: 2px;
+        border-color: #000000;
         color: #fff;
         cursor: pointer;
         font-size: 16px;
+        font-family: "Montserrat";
+    }
+
+    .quantity-btn{
+        padding: 0px 8px;
+        margin-right: 10px;
+        background-color: #ffffff;
+        color: #000000;
+        border: solid;
+        border-radius: 50px;
+        border-width: 2px;
+        cursor: pointer;
+        font-size: 20px;
+        font-weight: bold;
         font-family: "Montserrat";
     }
 
@@ -158,11 +186,13 @@ while ($rowItem = $resultItems->fetch_assoc()) {
         padding: 10px 20px;
         background-color: red;
         color: #ffffff;
-        border: none;
-        border-radius: 5px;
+        border: solid;
+        border-width: 2px;
+        border-color: #000000;
         cursor: pointer;
         transition: background-color 0.3s;
         font-size: 16px;
+        font-weight: bold;
         font-family: "Montserrat";
     }
 
@@ -170,9 +200,93 @@ while ($rowItem = $resultItems->fetch_assoc()) {
         background-color: #cc4c37;
     }
 
-    /* Adjust margin or padding as needed */
     .delete-btn, .logout-btn {
         margin-right: 8px;
+    }
+
+    /*For Tablet*/
+    @media only screen and (max-width: 768px) {
+        .profile-container {
+            padding: 10px;
+        }
+
+        .profile-info {
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .profile-photo {
+            margin-bottom: 20px;
+        }
+
+        .profile-details .info {
+            text-align: center;
+        }
+
+        .profile-btns {
+            flex-direction: column;
+            gap: 20px;
+            justify-content: center;
+        }
+
+        item p {
+            font-size: 12px; /* Set font size for smaller screens */
+        }
+
+        .delete-btn{
+            font-size: 14px;
+        }
+
+        .quantity-btn{
+            padding: 0px 7px;
+            font-size: 16px;
+        }
+
+        .btns {
+            flex-direction: column;
+            gap: 20px;
+            justify-content: center;
+            align-items: center;
+        }
+    }
+
+    /*For Mobile*/
+    @media only screen and (max-width: 480px) {
+        .profile-info {
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .profile-photo {
+            width: 150px;
+            height: 150px;
+        }
+
+        .profile-details .info {
+            text-align: center;
+            font-size: 16px;
+        }
+
+        .item p {
+            font-size: 10px; /* Set font size for smaller screens */
+        }
+
+        .delete-btn{
+            font-size: 12px;
+        }
+
+        .quantity-btn{
+            margin-right: 4px;
+            padding: 0px 5px;
+            font-size: 14px;
+        }
+
+        .btns {
+            flex-direction: column;
+            gap: 20px;
+            justify-content: center;
+            align-items: center;
+        }
     }
 
 </style>
@@ -213,12 +327,12 @@ while ($rowItem = $resultItems->fetch_assoc()) {
             </p>
             <div class="profile-btns">
                 <div>
-            <form method="post" action="update-process.php?id=<?php echo $row["id"];?>">
+                <form method="post" action="update-process.php?id=<?php echo $row["id"];?>">
                 <input type="hidden" name="id" value="<?php echo $row['id']; ?>">
                 <button class="edit-btn" type="submit" name="submit">Edit</button>
                 </div>
                 </form>
-                <div><button class="logout-btn" onclick="location.href='login.php'">Log Out</button></div>
+                <div><button class="logout-btn" onclick="logout()">Log Out</button></div>
             </div>
         </div>
     </div>
@@ -226,13 +340,17 @@ while ($rowItem = $resultItems->fetch_assoc()) {
 <br><br>
 <h2>Items List</h2>
 <div class="item-list" id="itemList">
-        <!-- PHP will populate the item list here -->
         <?php foreach ($items as $index => $item): ?>
             <div class="item" id="item_<?php echo $item['id']; ?>">
                 <p><strong>Name:</strong> <?php echo $item['name']; ?></p>
-                <p><strong>Weight:</strong> <?php echo $item['weight']; ?> kg</p>
-                <p><strong>Quantity:</strong> <?php echo $item['qty']; ?> qty</p>
+                <p><strong>Weight:</strong> <?php echo $item['weight']; ?>kg</p>
+                <p><strong>Quantity:</strong> <?php echo $item['qty']; ?>qty</p>
                 <div>
+                    <!-- Plus button to increase quantity -->
+                    <button class="quantity-btn" onclick="updateQuantity(<?php echo $item['id']; ?>, 'increase')">+</button>
+                    <!-- Minus button to decrease quantity -->
+                    <button class="quantity-btn" onclick="updateQuantity(<?php echo $item['id']; ?>, 'decrease')">-</button>
+                    <!-- Delete button to remove item -->
                     <button class="delete-btn" onclick="deleteItem(<?php echo $item['id']; ?>)">Delete</button>
                 </div>
             </div>
@@ -246,6 +364,23 @@ while ($rowItem = $resultItems->fetch_assoc()) {
 </section>
 
 <script>
+
+    function logout() {
+            // Send an AJAX request to logout.php to destroy the session
+            $.ajax({
+                type: "POST",
+                url: "logout.php", // PHP script to handle logout
+                success: function(response) {
+                    console.log("Logged out successfully:", response);
+                    // Redirect the user to the login page
+                    window.location.href = "login.php";
+                },
+                error: function(xhr, status, error) {
+                    console.error("Error logging out:", error);
+                }
+            });
+    }
+
     // Function to handle deleting an item
     function deleteItem(itemId) {
         console.log("Deleting item:", itemId);
@@ -264,11 +399,27 @@ while ($rowItem = $resultItems->fetch_assoc()) {
         });
     }
 
+    // Function to handle updating quantity
+    function updateQuantity(itemId, action) {
+        console.log("Updating quantity for item:", itemId, "Action:", action);
+        $.ajax({
+            type: "POST",
+            url: "update-quantity.php", // PHP script to handle quantity update
+            data: { itemId: itemId, action: action },
+            success: function(response) {
+                console.log("Quantity updated successfully:", response);
+                // Refresh the page to reflect updated quantity
+                location.reload();
+            },
+            error: function(xhr, status, error) {
+                console.error("Error updating quantity:", error);
+            }
+        });
+    }
+
     // Function to handle requesting now
     function requestNow() {
         console.log("Requesting now...");
-        // Add your request now functionality here
-        // For example, redirect to another page
         window.location.href = "ordered.html";
     }
 </script>
