@@ -5,7 +5,9 @@ include_once 'config.php';
 $id = '';
 $message = '';
 
+// Check if the form is submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
+    // Ensure that the ID is received via POST
     if (!empty($_POST['id'])) {
         $id = $_POST['id'];
         $name = isset($_POST['name']) ? $_POST['name'] : '';
@@ -39,19 +41,34 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
             mysqli_query($db, "UPDATE users SET name='$name', phone='$phone', address='$address', email='$email' WHERE id='$id'");
             $message = "Record Modified Successfully";
         }
+
+        // Update database with user data
+        $updateQuery = $db->prepare("UPDATE users SET name=?, phone=?, address=?, email=? WHERE id=?");
+        $updateQuery->bind_param("ssssi", $name, $phone, $address, $email, $id);
+        if ($updateQuery->execute()) {
+            $message = "Record Modified Successfully";
+        } else {
+            $message = "Error updating record: " . $db->error;
+        }
     } else {
         $message = "Error: ID not received via POST";
     }
+} else {
+    // If the form is not submitted, retrieve user data
+    if (isset($_GET['id'])) {
+        $id = $_GET['id'];
+        $result = mysqli_query($db, "SELECT * FROM users WHERE id='$id'");
+        $row = mysqli_fetch_array($result);
+
+        // Assign retrieved values to variables
+        $name = $row['name'];
+        $phone = $row['phone'];
+        $address = $row['address'];
+        $email = $row['email'];
+    } else {
+        $message = "Error: ID not provided";
+    }
 }
-
-$result = mysqli_query($db, "SELECT * FROM users WHERE id='$id'");
-$row = mysqli_fetch_array($result);
-
-// Assign retrieved values to variables
-$name = $row['name'];
-$phone = $row['phone'];
-$address = $row['address'];
-$email = $row['email'];
 
 ?>
 
