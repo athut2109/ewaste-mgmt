@@ -417,11 +417,38 @@ while ($rowItem = $resultItems->fetch_assoc()) {
         });
     }
 
-    // Function to handle requesting now
     function requestNow() {
-        console.log("Requesting now...");
-        window.location.href = "ordered.html";
+    // Check if the item list is empty
+    if ($(".item").length === 0) {
+        // Show error message if the list is empty
+        alert("The list is empty! Add items to the list.");
+    } else {
+        // Array to store item IDs for deletion
+        var itemIds = [];
+
+        // Get item IDs from the DOM
+        $(".item").each(function() {
+            var itemId = $(this).attr("id").split("_")[1];
+            itemIds.push(itemId);
+        });
+
+        // Send AJAX request to delete items from the database list
+        $.ajax({
+            type: "POST",
+            url: "delete-all-items.php", // PHP script to handle deletion of items
+            data: { itemIds: itemIds },
+            success: function(response) {
+                console.log("Items deleted from the database list:", response);
+                // Redirect to ordered.html after deleting items
+                window.location.href = "ordered.html";
+            },
+            error: function(xhr, status, error) {
+                console.error("Error deleting items:", error);
+            }
+        });
     }
+}
+
 </script>
 </body>
 </html>
