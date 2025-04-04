@@ -12,7 +12,8 @@ Welcome to the E-Waste Management Service repository! This project aims to provi
 ## Installation
 
 1. Clone this repository to your local machine:
-git clone https://github.com/athut2109/ewaste-mgmt.git
+
+    `git clone https://github.com/athut2109/ewaste-mgmt.git`
 
 
 2. Ensure you have XAMPP installed on your machine. If not, download and install it from [here](https://www.apachefriends.org/index.html).
@@ -57,6 +58,6 @@ git clone https://github.com/athut2109/ewaste-mgmt.git
 
 ## Contact
 
-If you have any questions or suggestions regarding this project, feel free to contact us at [atharvat09.work@gmail.com](mailto:atharvat09.work@gmail.com).
+If you have any questions or suggestions regarding this project, feel free to contact us at [atharvat.code@gmail.com](mailto:atharvat.code@gmail.com).
 
 Thank you for using our E-Waste Management Service!
